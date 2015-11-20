@@ -1,0 +1,20 @@
+#
+# temperature-sensor-reader - https://github.com/blueskyfish/temperature-sensor-reader.git
+#
+# The MIT License (MIT)
+# Copyright (c) 2015 BlueSkyFish
+#
+
+# JetBrains
+.idea/
+*.iml
+
+node_modules/
+
+#
+# Ignore the real config.js file, because the file contains sensitive data for each server
+#
+config.js
+*.config.js
+
+dist/

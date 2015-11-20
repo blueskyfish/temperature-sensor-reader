@@ -1,0 +1,34 @@
+{
+  "name": "temperatur-sensor-reader",
+  "description": "The Temperature Sensor Reader processes the temperature and humidity receiving from the ELV USB-WDE1 (http://www.elv.de/-353.html) sensor adapter.",
+  "version": "0.4.3",
+  "author": "BlueSkyFish <blueskyfish@blueskyfish.de>",
+  "readme": "see @ readme.md",
+  "keywords": [
+    "node",
+    "ELV",
+    "USB-WDE1",
+    "sensor",
+    "sensor adapter",
+    "temperature",
+    "humidity",
+    "smart home"
+  ],
+  "dependencies": {
+    "bluesky-logger": "0.3.1",
+    "dateformat": "1.0.11",
+    "later": "1.1.6",
+    "lodash": "3.10.1",
+    "minimist": "1.1.3",
+    "mysql": "2.8.0",
+    "q": "1.4.1",
+    "qs": "4.0.0",
+    "serialport": "1.6.1"
+  },
+  "devDependencies": {
+    "del": "1.2.1",
+    "gulp": "3.9.0",
+    "gulp-ejs": "1.1.1",
+    "gulp-rename": "1.2.2"
+  }
+}
