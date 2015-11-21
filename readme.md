@@ -143,7 +143,7 @@ port.separator     | the line separator
 ```
 
 
-Datebase Schema
+Database Schema
 ---------------
 
 The sensor reader stores the data into a local mysql database. This database contains only one table.
