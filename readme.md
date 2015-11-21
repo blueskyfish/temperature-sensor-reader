@@ -12,6 +12,7 @@ Table of Content
 * [Start](#user-content-start)
 * [Arguments](#user-content-arguments)
 * [Settings](#user-content-settings)
+* [Database Schema](#user-content-database-schema)
 * [History](#user-content-history)
 * [Statement](#user-content-statement)
 * [License](#user-content-license)
@@ -140,6 +141,14 @@ port.separator     | the line separator
   }
 }
 ```
+
+
+Datebase Schema
+---------------
+
+The sensor reader stores the data into a local mysql database. This database contains only one table.
+
+![Sensor Reader Local](docs/mysql-tables.png)
 
 
 History
