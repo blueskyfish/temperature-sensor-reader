@@ -27,8 +27,8 @@ SET time_zone = "+00:00";
 -- NOTE: If you change the table name, then you have to change the name in the "storage-provider"!!
 --
 
-DROP TABLE IF EXISTS `sensor-local`;
-CREATE TABLE IF NOT EXISTS `sensor-local` (
+DROP TABLE IF EXISTS `sensor-reader-local`;
+CREATE TABLE IF NOT EXISTS `sensor-reader-local` (
   `sensor_id`   int(11) NOT NULL COMMENT 'the primary key',
   `group_id`    int(11) NOT NULL COMMENT 'the group id of the sensor reader',
   `name_id`     int(11) NOT NULL COMMENT 'the name id of the sensor',
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `sensor-local` (
   `humidity`    int(11) NOT NULL COMMENT 'The humidity value is multiplied by 100',
   `date`        datetime NOT NULL,
   `status`      enum('SAVED','UPLOADED','DELETED') NOT NULL DEFAULT 'SAVED'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='(temperature-sensor-reader) the local sensor data';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='(temperature-sensor-reader) the reader local sensor data';
 
 --
 -- Indizes für die Tabelle `sensor-local`
