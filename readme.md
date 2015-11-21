@@ -4,13 +4,54 @@ Sensor Reader
 
 > The Temperature Sensor Reader processes the temperature and humidity receiving from the [ELV USB-WDE1](http://www.elv.de/-353.html) sensor adapter.
 
+Table of Content
+
+* [Installation](#user-content-installation)
+* [Start](#user-content-start)
+* [Arguments](#user-content-arguments)
+* [Settings](#user-content-settings)
+* [Statement](#user-content-statement)
+* [License](#user-content-license)
+
+Installation
+------------
+
+```sh
+$ cd /path/to/install
+$ git clone http://github.com/blueskyfish/temperature-sensor-reader.git
+$ cd temperature-sensor-reader
+$ npm install
+$ npm link
+```
+
+**Inportent**
+*Don\'t forget to create the `.tsr-settings.json` file in your home path.*
+
 Start
 -----
 
-Start the reader application:
+When call the command `npm link` before, there are created two short link in order to start the application.
 
+**First**
+
+```sh
+$ tsreader
 ```
-$ node reader.js [--config=path/to/tsr-settings.json] [-d]
+
+**Second**
+
+```sh
+$ tsreaderd
+```
+
+The Debug mode is on and the log messages are shown on the console.
+
+**Third**
+
+Call the full command
+
+```sh
+$ node reader.js [-d] [--config=/path/to/the/trs-settings.json]
 ```
 
 Arguments
