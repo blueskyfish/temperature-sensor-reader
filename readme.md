@@ -5,6 +5,7 @@ Sensor Reader
 > The Temperature Sensor Reader processes the temperature and humidity receiving from the [ELV USB-WDE1](http://www.elv.de/-353.html) sensor adapter.
 
 Table of Content
+----------------
 
 * [Installation](#user-content-installation)
 * [Start](#user-content-start)
