@@ -47,7 +47,6 @@ port.separator     | the line separator
 **Example**
 ```json
 {
-  "version": "<%= datetime %> @ <%= target %> in version <%= version %>",
   "message": "this is an example settings for the temperature sensor reader",
   "logger": {
     "namespaces": {

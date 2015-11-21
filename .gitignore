@@ -11,10 +11,4 @@
 
 node_modules/
 
-#
-# Ignore the real config.js file, because the file contains sensitive data for each server
-#
-config.js
-*.config.js
-
 dist/
