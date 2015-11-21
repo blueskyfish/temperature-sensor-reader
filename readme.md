@@ -4,6 +4,7 @@ Sensor Reader
 
 > The Temperature Sensor Reader processes the temperature and humidity receiving from the [ELV USB-WDE1](http://www.elv.de/-353.html) sensor adapter.
 
+
 Table of Content
 ----------------
 
@@ -11,8 +12,10 @@ Table of Content
 * [Start](#user-content-start)
 * [Arguments](#user-content-arguments)
 * [Settings](#user-content-settings)
+* [History](#user-content-history)
 * [Statement](#user-content-statement)
 * [License](#user-content-license)
+
 
 Installation
 ------------
@@ -27,6 +30,7 @@ $ npm link
 
 **Inportent**
 *Don\'t forget to create the `.tsr-settings.json` file in your home path.*
+
 
 Start
 -----
@@ -54,6 +58,7 @@ Call the full command
 ```sh
 $ node reader.js [-d] [--config=/path/to/the/trs-settings.json]
 ```
+
 
 Arguments
 ---------
@@ -135,6 +140,14 @@ port.separator     | the line separator
   }
 }
 ```
+
+
+History
+-------
+
+| Version     | Date       | Description
+|-------------|------------|----------------------------
+| v0.5.0      | 2015-11-21 | complete transfer from the old project *temperature-monitor*.
 
 
 Statement
