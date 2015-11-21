@@ -4,6 +4,15 @@
   "version": "0.4.3",
   "author": "BlueSkyFish <blueskyfish@blueskyfish.de>",
   "readme": "see @ readme.md",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/blueskyfish/temperature-sensor-reader.git"
+  },
+  "bin": {
+    "tsreader": "node reader.js",
+    "tsreaderd": "node reader -d"
+  },
   "keywords": [
     "node",
     "ELV",
@@ -15,8 +24,8 @@
     "smart home"
   ],
   "dependencies": {
-    "bluesky-logger": "0.3.1",
-    "dateformat": "1.0.11",
+    "bluesky-logger": "0.5.0",
+    "dateformat": "1.0.12",
     "later": "1.1.6",
     "lodash": "3.10.1",
     "minimist": "1.1.3",

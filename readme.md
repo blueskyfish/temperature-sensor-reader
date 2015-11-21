@@ -1,28 +1,31 @@
 
-# Sensor Reader
+Sensor Reader
+=============
 
 > The Temperature Sensor Reader processes the temperature and humidity receiving from the [ELV USB-WDE1](http://www.elv.de/-353.html) sensor adapter.
 
-## Start
+Start
+-----
 
 Start the reader application:
 
 ```
-$ node reader.js [--config=path/to/config.js] [--help] [--level=xxx]
+$ node reader.js [--config=path/to/tsr-settings.json] [-d]
 ```
 
-## Arguments
+Arguments
+---------
 
 The program arguments are optional.
 
-name               | description
--------------------|-----------------------------
- config            | the filename of the configuration. If not present, then it use "config.js"
-help               | shows the usage of the application
-level              | set the log level
+| name               | description                                                                                   |
+|--------------------|-----------------------------------------------------------------------------------------------|
+| config             | the filename of the configuration. If not present, then it use `USER.HOME/.tsr-settings.json` |
+| -d                 | application is in debug modus. All log message will be shown in the console.                  |
 
 
-## Config File
+Settings
+--------
 
 The configuration for all parameters is in a js file. If the parameter `config` is not present, then it is looking for the file in the current folder.
 
@@ -41,14 +44,66 @@ port.name          | the filename of the serial port
 port.baudrate      | the baudrate for reading the sensor raw data
 port.separator     | the line separator
 
+**Example**
+```json
+{
+  "version": "<%= datetime %> @ <%= target %> in version <%= version %>",
+  "message": "this is an example settings for the temperature sensor reader",
+  "logger": {
+    "namespaces": {
+      "root": "debug",
+      "sensor": "config",
+      "sensor.provider": "info",
+      "sensor.provider.filter": "debug",
+      "sensor.provider.database": "info",
+      "sensor.provider.prepare": "debug",
+      "sensor.provider.sensor": "debug"
+    },
+    "separator": "."
+  },
+
+  "sensor": {
+    "groupId": 1000
+  },
+
+  "port": {
+    "name": "/dev/ttyXX",
+    "baudrate": 9600,
+    "separator": "\r\n"
+  },
+
+  "schedule": {
+    "value": 20,
+    "unit": "minute"
+  },
+
+  "cache": {
+    "timeoutPeriod": 170000
+  },
+
+  "database": {
+    "name": "database",
+    "host": "localhost",
+    "port": 3306,
+    "user": "dbuser",
+    "pass": "dbpassword"
+  },
+
+  "server": {
+    "url": "http://domain.tld/path/to/temo/server/upload"
+  }
+}
+```
 
 
-## Statement
+Statement
+---------
 
 This application needs the [ELV USB-WDE1 Adapter](http://www.elv.de/-353.html). This is a private hobby project and I have no business relationship with the company [ELV GmbH](http://www.elv.de).
 
 
-## License
+License
+-------
 
 ```
 The MIT License (MIT)

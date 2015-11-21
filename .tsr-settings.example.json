@@ -1,0 +1,47 @@
+{
+  "version": "<%= datetime %> @ <%= target %> in version <%= version %>",
+  "message": "this is an example settings for the temperature sensor reader",
+  "logger": {
+    "namespaces": {
+      "root": "debug",
+      "sensor": "config",
+      "sensor.provider": "info",
+      "sensor.provider.filter": "debug",
+      "sensor.provider.database": "info",
+      "sensor.provider.prepare": "debug",
+      "sensor.provider.sensor": "debug"
+    },
+    "separator": "."
+  },
+
+  "sensor": {
+    "groupId": 1000
+  },
+
+  "port": {
+    "name": "/dev/ttyXX",
+    "baudrate": 9600,
+    "separator": "\r\n"
+  },
+
+  "schedule": {
+    "value": 20,
+    "unit": "minute"
+  },
+
+  "cache": {
+    "timeoutPeriod": 170000
+  },
+
+  "database": {
+    "name": "database",
+    "host": "localhost",
+    "port": 3306,
+    "user": "dbuser",
+    "pass": "dbpassword"
+  },
+
+  "server": {
+    "url": "http://domain.com/path/to/temo/server/upload"
+  }
+}

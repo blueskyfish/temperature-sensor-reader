@@ -5,31 +5,26 @@
  * Copyright (c) 2015 BlueSkyFish
  *
  * Distributed on "<%= datetime %> @ <%= target %>" in version <%= version %>
- *
- * Usage:
- * $ node reader.js [--config=path/to/config.js] [--help] [--level=xxx]
  */
 
 'use strict';
 
 var _ = require('lodash');
 var later = require('later');
-var loggerFactory = require('bluesky-logger');
-var logger = loggerFactory.getLogger('sensor.main');
 var serialport = require('serialport');
 var Q = require('q');
 
-var env = require('./lib/env');
-var cacheProvider = require('./lib/cache-provider');
+var logger = require('./lib/logger').getLogger('sensor.main');
+var settings = require('./lib/settings');
+var filterProvider = require('./lib/filter-provider');
 var httpProvider = require('./lib/http-provider');
 var prepareProvider = require('./lib/prepare-provider');
 var sensorProvider = require('./lib/sensor-provider');
 var databaseProvider = require('./lib/database-provider');
 var pkg = require('./package.json');
 
-var
-  reader,   // serial port reader
-  jobId;    // the later job (for cancel the job)
+var reader;   // The serial reader object
+var jobId;    // the later job (for cancel the job)
 
 /**
  * Callback function for receive data from the sensor reader.
@@ -43,31 +38,31 @@ var
  * @param {string} data the plain text with the sensor data.
  * @private
  */
-function _onReceiveData(data) {
+function _onSensorAdapterReceiveData(data) {
   logger.info('Begin: receive Data (size=', _.size(data), ')');
   Q.fcall(function () {
     return prepareProvider.extractLine(data);
   })
     .then(function (line) {
-      return sensorProvider.getSensorList(env.sensor, line);
+      return sensorProvider.getSensorList(line);
     })
     .then(function (sensorList) {
       return _traceStep('Sensor List (extract)', sensorList);
     })
     .then(function (sensorList) {
-      return cacheProvider.filterSensorList(env.cache, sensorList);
+      return filterProvider.filterSensorList(sensorList);
     })
     .then(function (sensorList) {
-      return _traceStep('SensorList (cache filtered)', sensorList);
+      return _traceStep('SensorList (filtered)', sensorList);
     })
     .then(function (sensorList) {
-      return httpProvider.sendSensorList(env.server, sensorList);
+      return httpProvider.sendSensorList(sensorList);
     })
     .then(function (sensorList) {
       return _traceStep('Sensor List (after send)', sensorList);
     })
     .then(function (sensorList) {
-      return databaseProvider.saveSensorList(env.database, sensorList);
+      return databaseProvider.insertSensorList(env.database, sensorList);
     })
     .done(
       function (insertIdList) {
@@ -83,22 +78,22 @@ function _onReceiveData(data) {
     );
 }
 
-function _onScheduleSensor() {
+function _onScheduleNotUploadedSensors() {
   logger.info('Begin schedule of not uploaded sensor data');
   Q.fcall(function () {
-    return databaseProvider.getSensorList(env.database);
+    return databaseProvider.getSensorList();
   })
   .then(function (sensorList) {
     return _traceStep('SensorList (status <> "UPDATED")', sensorList);
   })
   .then(function (sensorList) {
-    return httpProvider.sendSensorList(env.server, sensorList);
+    return httpProvider.sendSensorList(sensorList);
   })
   .then(function (sensorList) {
     return _traceStep('Sensor List (after send)', sensorList);
   })
   .then(function (sensorList) {
-    return databaseProvider.updateSensorList(env.database, sensorList);
+    return databaseProvider.updateSensorList(sensorList);
   })
   .done(
     function (result) {
@@ -121,7 +116,9 @@ function _onScheduleSensor() {
  * @private
  */
 function _traceStep(message, result) {
-  logger.trace(message, ' ', JSON.stringify(result, null, 4));
+  if (logger.isTraceEnable()) {
+    logger.trace(message, ' ', JSON.stringify(result, null, 4));
+  }
   return result;
 }
 
@@ -155,40 +152,39 @@ function _shutdown(sigName) {
  */
 function _main() {
 
-  var
-    sched;
+  var sched;
+  var schedUnit = settings.getValue('schedule.unit', 'minute');
+  var schedValue = settings.getValue('schedule.value', 20);
+  var portName = settings.getValue('port.name', null);
+  var portBaudrate = settings.getValue('port.baudrate', 9600);
+  var portSeparator = settings.getValue('port.separator', '\r\n');
 
-  // configuration of logger
-  loggerFactory
-    .config(env.logger.namespaces)
-    .setSeparator(env.logger.separator);
-
-  switch (env.schedule.unit || 'minute') {
+  switch (schedUnit) {
     case 'hour':
-      sched = later.parse.recur().every(env.schedule.value).hour();
+      sched = later.parse.recur().every(schedValue).hour();
       break;
     default:
     case 'minute':
-      sched = later.parse.recur().every(env.schedule.value).minute();
+      sched = later.parse.recur().every(schedValue).minute();
       break;
   }
 
   
   logger.info(pkg.name, ' (', pkg.version, ')');
-  logger.config('Schedule: ', env.schedule.value, ' ', env.schedule.unit);
+  logger.config('Schedule: ', schedValue, ' ', schedUnit);
 
   // starts the schedule job with later...
-  jobId = later.setInterval(_onScheduleSensor, sched);
+  jobId = later.setInterval(_onScheduleNotUploadedSensors, sched);
 
   // create serialport object
-  reader = new serialport.SerialPort(env.port.name, {
-    baudrate: env.port.baudrate,
-    parser: serialport.parsers.readline(env.port.separator)
+  reader = new serialport.SerialPort(portName, {
+    baudrate: portBaudrate,
+    parser: serialport.parsers.readline(portSeparator)
   });
 
   reader.on('open', function () {
-    logger.config('Open serial Port "', env.port.name, '" with sensor reader "', env.sensor.groupId, '"');
-    reader.on('data', _onReceiveData);
+    logger.config('Open serial Port "', portName, '" with sensor reader "', settings.getValue('sensor.groupId', 0), '"');
+    reader.on('data', _onSensorAdapterReceiveData);
   });
 
   // listen for TERM signal .e.g. kill
