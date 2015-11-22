@@ -28,7 +28,7 @@
     "unit": "minute"
   },
 
-  "cache": {
+  "filter": {
     "timeoutPeriod": 170000
   },
 

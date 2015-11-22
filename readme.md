@@ -124,7 +124,7 @@ port.separator     | the line separator
     "unit": "minute"
   },
 
-  "cache": {
+  "filter": {
     "timeoutPeriod": 170000
   },
 
