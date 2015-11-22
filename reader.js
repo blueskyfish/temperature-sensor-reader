@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
  * temperature-sensor-reader - http://github.com/blueskyfish/temperature-sensor-reader.git
  *
@@ -60,7 +62,7 @@ function _onSensorAdapterReceiveData(data) {
       return _traceStep('Sensor List (after send)', sensorList);
     })
     .then(function (sensorList) {
-      return databaseProvider.insertSensorList(env.database, sensorList);
+      return databaseProvider.insertSensorList(sensorList);
     })
     .done(
       function (insertIdList) {

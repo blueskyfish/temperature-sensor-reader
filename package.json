@@ -10,8 +10,7 @@
     "url": "http://github.com/blueskyfish/temperature-sensor-reader.git"
   },
   "bin": {
-    "tsreader": "node reader.js",
-    "tsreaderd": "node reader -d"
+    "tsreader": "reader.js"
   },
   "keywords": [
     "node",
