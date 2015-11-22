@@ -44,14 +44,6 @@ When call the command `npm link` before, there are created two short link in ord
 $ tsreader
 ```
 
-**Second**
-
-```sh
-$ tsreaderd
-```
-
-The Debug mode is on and the log messages are shown on the console.
-
 **Third**
 
 Call the full command
@@ -157,6 +149,7 @@ History
 
 | Version     | Date       | Description
 |-------------|------------|----------------------------
+| v0.5.3      | 2015-11-22 | fixed errors and improve the code. deployment on raspberry pi.
 | v0.5.0      | 2015-11-21 | complete transfer from the old project *temperature-monitor*.
 
 
