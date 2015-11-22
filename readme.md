@@ -104,7 +104,8 @@ port.separator     | the line separator
       "sensor.provider.filter": "debug",
       "sensor.provider.database": "info",
       "sensor.provider.prepare": "debug",
-      "sensor.provider.sensor": "debug"
+      "sensor.provider.sensor": "debug",
+      "sensor.provider.http": "info"
     },
     "separator": "."
   },
