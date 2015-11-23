@@ -149,6 +149,7 @@ History
 
 | Version     | Date       | Description
 |-------------|------------|----------------------------
+| v0.5.4      | 2015-11-23 | logger file appender: adjust the filename
 | v0.5.3      | 2015-11-22 | fixed errors and improve the code. deployment on raspberry pi.
 | v0.5.0      | 2015-11-21 | complete transfer from the old project *temperature-monitor*.
 

@@ -1,7 +1,7 @@
 {
   "name": "temperatur-sensor-reader",
   "description": "The Temperature Sensor Reader processes the temperature and humidity receiving from the ELV USB-WDE1 (http://www.elv.de/-353.html) sensor adapter.",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "author": "BlueSkyFish <blueskyfish@blueskyfish.de>",
   "readme": "see @ readme.md",
   "license": "MIT",
